@@ -16,24 +16,26 @@ class Server():
         return sock
 
     def run(self):
-        i = 0
         server_sock = self.createSocket()
         conn, addr = server_sock.accept()
-        data = str(conn.recv(1024))
-        print(addr, "is connected")
-        c = Client(1, addr, data)
-        print("ID:", c.id)
-        print("ADDR:", c.addr)
-        print("LOGIN:", c.login)
-        c.start()
-        self.threads.append(c)
+        while True:
+            data = str(conn.recv(1024))
+            c = Client(addr, data)
+            print(data)
+            print("ID:", c.id)
+            #print("ADDR:", c.addr)
+            #print("LOGIN:", c.login)
+            c.start()
+            self.threads.append(c)
+        conn.close()
+
 
 class Client(threading.Thread):
-    def __init__(self, id, addr, data):
+    def __init__(self, addr, data):
         threading.Thread.__init__(self)
-        self.id = id
+        self.id = threading.get_ident()
         self.addr = str(addr[0]) + ":" + str(addr[1])
         self.login = data[2:-1]
 
 server = Server("localhost", 8888, 2)
-server.run();
+server.run()
