@@ -2,7 +2,7 @@ from socket import *
 import time
 
 HOST = 'localhost'
-PORT = 8888
+PORT = 5000
 
 s = socket(AF_INET, SOCK_STREAM, 0, None)
 s.connect((HOST, PORT))

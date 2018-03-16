@@ -1,9 +1,12 @@
-
+from flask import Flask
+from flask import render_template
 from socket import *
 import threading
 import select
 import datetime
 from time import gmtime, strftime
+
+app = Flask(__name__)
 
 class Server():
     def __init__(self, host, port, user_number):
@@ -49,6 +52,10 @@ class Client(threading.Thread):
             if message[2:-1] == "exit":
                 login = False
 
+@app.route("/")
+def main():
+    return render_template('index.htm')
+
 if __name__ == "__main__":
-    server = Server("localhost", 8888, 2)
-    server.run()
+    server = Server("localhost", 5000, 2)
+    app.run()
