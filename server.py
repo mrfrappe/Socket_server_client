@@ -1,6 +1,9 @@
 
 from socket import *
 import threading
+import select
+import datetime
+from time import gmtime, strftime
 
 class Server():
     def __init__(self, host, port, user_number):
@@ -18,8 +21,8 @@ class Server():
     def run(self):
         running = True
         server_sock = self.createSocket()
-        conn, addr = server_sock.accept()
         while running:
+            conn, addr = server_sock.accept()
             data = str(conn.recv(1024))
             c = Client(conn, addr, data)
             print("ID:", c.id, end =" ")
@@ -27,8 +30,8 @@ class Server():
             print("LOGIN:", c.login)
             c.start()
             self.threads.append(c)
-            for t in self.threads:
-                t.join()
+            # for t in self.threads:
+            #     t.join()
         conn.close()
 
 
@@ -44,10 +47,10 @@ class Client(threading.Thread):
         login = True
         while login:
             message = str(self.conn.recv(1024))
-            print(self.login + ":", message[2:-1])
+            print("(" + str(strftime("%H:%M:%S",gmtime())) +")" + self.login + ":", message[2:-1])
             if message[2:-1] == "exit":
                 login = False
 
-
-server = Server("localhost", 8888, 2)
-server.run()
+if __name__ == "__main__":
+    server = Server("localhost", 8888, 2)
+    server.run()
