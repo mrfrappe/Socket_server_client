@@ -50,5 +50,5 @@ class Client(threading.Thread):
                 login = False
 
 if __name__ == "__main__":
-    server = Server("localhost", 8888, 2)
+    server = Server("localhost", 5000, 2)
     server.run()
