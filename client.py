@@ -13,5 +13,5 @@ while True:
     message = input("Send:")
     data = s.sendall(message.encode("utf-8"))
     if message == "exit":
-        break;
+        break
 s.close()

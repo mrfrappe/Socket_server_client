@@ -5,6 +5,7 @@ import select
 import datetime
 from time import gmtime, strftime
 
+
 class Server():
     def __init__(self, host, port, user_number):
         self.host = host
@@ -25,8 +26,8 @@ class Server():
             conn, addr = server_sock.accept()
             data = str(conn.recv(1024))
             c = Client(conn, addr, data)
-            print("ID:", c.id, end =" ")
-            print("ADDR:", c.addr, end = " ")
+            print("ID:", c.id, end=" ")
+            print("ADDR:", c.addr, end=" ")
             print("LOGIN:", c.login)
             c.start()
             self.threads.append(c)
@@ -45,9 +46,11 @@ class Client(threading.Thread):
         login = True
         while login:
             message = str(self.conn.recv(1024))
-            print("(" + str(strftime("%H:%M:%S",gmtime())) +") " + self.login + ":", message[2:-1])
+            print("(" + str(strftime("%H:%M:%S", gmtime())) + ") " +
+                  self.login + ":", message[2:-1])
             if message[2:-1] == "exit":
                 login = False
+
 
 if __name__ == "__main__":
     server = Server("localhost", 5000, 2)
