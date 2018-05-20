@@ -5,7 +5,7 @@ Python server-client chat multi threading console aplication
 ## Built With
 
 * [Python 3.6](https://docs.python.org/3/)
-# [Socket module](https://docs.python.org/3.6/library/socket.html) - Low-level networking interface
+* [Socket module](https://docs.python.org/3.6/library/socket.html) - Low-level networking interface
 
 ## Authors
 
